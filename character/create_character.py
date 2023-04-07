@@ -9,6 +9,7 @@ def create_character():
         'X-coordinate': 0,
         'Y-coordinate': 0,
         'HP': 100,
+        'radiation': 0,
         'skills': {'strength': 1, 'agility': 1, 'luck': 1},
         'inventory': []
     }
