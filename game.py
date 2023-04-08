@@ -2,25 +2,28 @@
 Alfrey Chan
 A01344049
 """
-from board.board import make_board
-from board.board import set_descriptions
+from board.board import make_board, set_descriptions, describe_current_location, get_user_choice, validate_move
+from board.board import move_character
+from character.create_character import create_character
 
 
 def game():
     board = make_board()
-    location_descriptions = set_descriptions(board)
+    # board = set_descriptions(board)
+    character = create_character()
+    # print(character)
     # print(location_descriptions)
-
     # character = make_character("Player name")
+
     # achieved_goal = False
     # while not achieved_goal:
     #
-    # describe_current_location(board, character)
-    # direction = get_user_choice()
-    # valid_move = validate_move(board, character, direction)
-    # if valid_move:
-    #     move_character(character)
-    # describe_current_location(board, character)
+    print(describe_current_location(board, character))
+    direction = get_user_choice()
+    valid_move = validate_move(board, character, direction)
+    if valid_move:
+        move_character(character)
+    print(describe_current_location(board, character))
     # there_is_a_challenge = check_for_challenges()
     # if there_is_a_challenge:
     #     execute_challenge_protocol(character)

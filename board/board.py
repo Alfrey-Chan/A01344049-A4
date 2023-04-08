@@ -6,8 +6,116 @@ import itertools
 import random
 
 
-def set_descriptions(board):
-    def randomized_descriptions(game_map):
+def move_character(character_coordinates: dict, direction: str) -> dict:
+    """
+    Move the character one unit by the specified direction.
+
+    A function to update the value of the key 'X-coordinate' or 'Y-coordinate' in character_coordinates depending on
+    the selected choice.
+
+    :param character_coordinates: a dictionary representing the character
+    :param direction: a string representing the player's choice of direction
+    :precondition: character_coordinates must be a dict created by the make_character function
+    :precondition: direction must be one of the following strings: 'W', 'A', 'S' or 'D'
+    :postcondition: decreases or increases the value belonging to the key 'X-coordinate' or 'Y-coordinate' in the
+                    dictionary character_coordinates depending on the value of direction
+    :return: the dictionary character_coordinates with one of the values updated
+    >>> character_information = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> chosen_direction = 'S'
+    >>> updated_character_details = move_character(character_information, chosen_direction)
+    >>> updated_character_details
+    {'X-coordinate': 0, 'Y-coordinate': 1, 'Current HP': 5}
+    >>> character_information = {'X-coordinate': 1, 'Y-coordinate': 1, 'Current HP': 5}
+    >>> chosen_direction = 'W'
+    >>> updated_character_details = move_character(character_information, chosen_direction)
+    >>> updated_character_details
+    {'X-coordinate': 1, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> character_information = {'X-coordinate': 2, 'Y-coordinate': 2, 'Current HP': 5}
+    >>> chosen_direction = 'A'
+    >>> updated_character_details = move_character(character_information, chosen_direction)
+    >>> updated_character_details
+    {'X-coordinate': 1, 'Y-coordinate': 2, 'Current HP': 5}
+    """
+    if direction == 'W':
+        character_coordinates["Y-coordinate"] -= 1
+    elif direction == 'A':
+        character_coordinates["X-coordinate"] -= 1
+    elif direction == 'S':
+        character_coordinates["Y-coordinate"] += 1
+    else:
+        character_coordinates["X-coordinate"] += 1
+    return character_coordinates
+
+
+def validate_move(character: dict, direction: str) -> bool:
+    """
+    Verify if the chosen direction leads to a coordinate that is out of bounds.
+
+    A function that checks if a move in a specified direction results in a coordinate outside the valid range, defined
+    by (x, y), where x and y are integers from 0 to 2.
+
+    :param character: a dictionary representing the character
+    :param direction: a string representing the player's choice of direction
+    :precondition: character must be a dictionary created by the make_character function
+    :precondition: direction must be one of the following strings: 'W', 'A', 'S' or 'D'
+    :postcondition: returns False if the 'X-coordinate' is 0 and the chosen direction is 'A', or if the 'X-coordinate'
+                    is 2 and the chosen direction is 'D', else True for other cases involving 'X-coordinate'
+    :postcondition: returns False if the 'Y-coordinate' is 0 and the chosen direction is 'W', or if the 'Y-coordinate'
+                    is 2 and the chosen direction is 'S', else True for other cases involving 'Y-coordinate'
+    :return: True or False
+    >>> character_details = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> chosen_direction = 'W'
+    >>> validate_move(character_details, chosen_direction)
+    False
+    >>> character_details = {'X-coordinate': 2, 'Y-coordinate': 2, 'Current HP': 5}
+    >>> chosen_direction = 'D'
+    >>> validate_move(character_details, chosen_direction)
+    False
+    >>> character_details = {'X-coordinate': 1, 'Y-coordinate': 1, 'Current HP': 5}
+    >>> chosen_direction = 'S'
+    >>> validate_move(character_details, chosen_direction)
+    True
+    """
+    if direction == 'W' and character["Y-coordinate"] != 0:
+        return True
+    elif direction == 'A' and character["X-coordinate"] != 0:
+        return True
+    elif direction == 'S' and character["Y-coordinate"] != 2:
+        return True
+    elif direction == 'D' and character["X-coordinate"] != 2:
+        return True
+    else:
+        return False
+
+
+def get_user_choice() -> str:
+    """
+    Ask user to enter one of the four direction choices.
+
+    :return: a string
+    """
+    choices = """ 
+    'W' for North
+    'A' for West
+    'S' for South
+    'D' for East   
+    """
+    direction = input(f"Choose the direction you'd like to move:\n{choices}").strip().upper()
+    print()
+
+    while direction not in ['W', 'A', 'S', 'D']:
+        print("Invalid input! Please choose one of the following options:")
+        direction = input(f"Choose the direction you'd like to move:\n{choices}").strip().upper()
+    return direction
+
+
+def describe_current_location(board: dict, character: dict) -> dict:
+    current_location = (character['X-coordinate'], character['Y-coordinate'])
+    return board[current_location]
+
+
+def set_descriptions(board: dict) -> dict:
+    def randomized_descriptions(game_map: dict) -> dict:
         coordinate_descriptions = [
             "Ugh, I don't feel so good...",
             "There's some odd growling noises in the distance. Doesn't sound too inviting...",
@@ -39,10 +147,11 @@ def set_descriptions(board):
         descriptions = random.sample(coordinate_descriptions, len(coordinate_descriptions))
         game_map = {coordinate: description for coordinate, description in zip(list(game_map.keys()), descriptions)}
         return game_map
+
     board = randomized_descriptions(board)
     return board
 
 
 def make_board():
     board = {(x_coordinate, y_coordinate): None for x_coordinate, y_coordinate in itertools.product(range(5), repeat=2)}
-    return board
+    return set_descriptions(board)
