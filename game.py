@@ -7,7 +7,7 @@ from board.board import set_descriptions, describe_current_location, get_user_ch
 from board.board import move_character, check_if_goal_attained
 from board.enemy_spawn import check_for_enemies
 from combat.combat import battle
-from character.create_character import create_character, update_xp
+from character.create_character import create_character, update_xp, check_if_level_up, update_skills
 
 
 def game():
@@ -31,6 +31,15 @@ def game():
                 if character['HP'] == 0:
                     return print(f"You've been slayed by the mighty {enemy_spawned[0]}")
                 update_xp(character, enemy_spawned[1]['XP'])
+                leveled_up = check_if_level_up(character)
+
+                if leveled_up:
+                    update_skills(character)
+
+                coordinates = ['X-coordinate', 'Y-coordinate']
+                character_without_coordinates = {key: value for key, value in character.items() if
+                                                 key not in coordinates}
+                print(character_without_coordinates)
         else:
             print("This direction is blocked by rubble and debris, you'll need to find another way around.")
 

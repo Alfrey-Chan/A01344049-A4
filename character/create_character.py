@@ -28,36 +28,46 @@ def update_skills(character: dict) -> dict:
     return character
 
 
-def update_xp(character, xp_gained: int) -> dict:
-    def check_if_level_up() -> bool:
-        if character['XP'] < 100:
-            print(f"XP to next level: {100 - character['XP']}\n")
-            return False
-        elif character['XP'] >= 100 and character['level'] == 1:
-            character['level'] += 1
-            print(f"XP to next level: {300 - character['XP']}\n")
-            return True
-        elif character['XP'] >= 300 and character['level'] == 2:
-            character['level'] += 1
-            return True
-        elif character['XP'] >= 100 and character['level'] == 2:
-            print(f"XP to next level: {300 - character['XP']}\n")
-            return False
-        else:
-            character['level'] = 'max'
-            return False
+def check_if_level_up(character: dict) -> bool:
+    if character['XP'] < 100:
+        print(f"XP to next level: {100 - character['XP']}\n")
+        return False
+    elif character['XP'] >= 100 and character['level'] == 1:
+        character['level'] += 1
+        print(f"XP to next level: {300 - character['XP']}\n")
+        return True
+    elif character['XP'] >= 300 and character['level'] == 2:
+        character['level'] += 1
+        return True
+    elif character['XP'] >= 100 and character['level'] == 2:
+        print(f"XP to next level: {300 - character['XP']}\n")
+        return False
+    else:
+        print("Max level reached!")
+        return False
 
+
+def update_xp(character: dict, xp_gained: int) -> dict:
+    """
+    Update the character's XP and level, and also skills if necessary.
+
+    :param character: a dict containing the character's attributes
+    :param xp_gained: an int representing the amount of XP gained
+    :precondition: character must contain 'XP' and 'level' keys with integer values
+    :precondition: xp_gained must be a positive integer
+    :postcondition: increases the character's total XP, and also the values stored in the 'skills' sub-dictionary if
+                    necessary
+    :return: an updated character dict
+    """
     character['XP'] += xp_gained
-    if check_if_level_up() is True:
-        update_skills(character)
-
-    coordinates = ['X-coordinate', 'Y-coordinate']
-    character_without_coordinates = {key: value for key, value in character.items() if key not in coordinates}
-    print(character_without_coordinates)
     return character
 
 
-def create_character():
+def create_character() -> dict:
+    """
+
+    :return:
+    """
     character = {
         'X-coordinate': 0,
         'Y-coordinate': 0,
