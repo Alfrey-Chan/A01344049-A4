@@ -8,27 +8,30 @@ import random
 
 def check_if_goal_attained(board: dict, character: dict) -> bool:
     """
-    Check if the player has reached the bottom right corner of a board.
+    Check if the player has reached the endpoint of the game.
 
-    A function that checks if the character coordinates match the last coordinates of a board (2, 2).
+    A function that checks if the character coordinates match the endpoint coordinates of a board.
 
-    :param board: a dictionary created by the "make_board" function
-    :param character: a dictionary created by the "make_character" function
-    :precondition: board must be a dict created by the make_board function
-    :precondition: character must be a dict created by the make_character function
+    :param board: a dict with tuples as keys representing coordinates of a map
+    :param character: a dict with character attributes and coordinates of the current location
+    :precondition: board must be a non-empty dict with (x, y) tuple keys representing x and y coordinates
+    :precondition: the endpoint coordinates in board must be the last item in the list of keys
+    :precondition: character must contain the keys 'X-coordinate' and 'Y-coordinate' each with single int value
     :postcondition: returns True if the coordinates of the character match the last key of the dict board, else False
     :return: True or False
-    >>> game_map = {(0, 0): "Room1", (0, 1): "Room2", (0, 2): "Room3", (1, 0): "Room4", (2, 2): "last_room"}
-    >>> character_information = {'X-coordinate': 2, 'Y-coordinate': 2, 'Current HP': 5}
-    >>> check_if_goal_attained(game_map, character_information)
+    :raises KeyError: if character dict does not contain the keys 'X-coordinate' and 'Y-coordinate'
+    :raises IndexError: if board dict is empty of the list of keys are empty
+    >>> game_map = {(0, 0): "", (0, 1): "", (0, 2): "", (1, 0): "", (2, 2): "endpoint"}
+    >>> character_coordinates = {'X-coordinate': 2, 'Y-coordinate': 2}
+    >>> check_if_goal_attained(game_map, character_coordinates)
     True
-    >>> game_map = {(0, 0): "Room1", (0, 1): "Room2", (0, 2): "Room3", (1, 0): "Room4", (2, 2): "last_room"}
-    >>> character_information = {'X-coordinate': 1, 'Y-coordinate': 1, 'Current HP': 5}
-    >>> check_if_goal_attained(game_map, character_information)
+    >>> game_map = {(0, 0): "", (0, 1): "", (0, 2): "", (1, 0): "", (2, 2): "endpoint"}
+    >>> character_coordinates = {'X-coordinate': 1, 'Y-coordinate': 1}
+    >>> check_if_goal_attained(game_map, character_coordinates)
     False
-    >>> game_map = {(0, 0): "Room1", (0, 1): "Room2", (0, 2): "Room3", (1, 0): "Room4", (2, 2): "last_room"}
-    >>> character_information = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
-    >>> check_if_goal_attained(game_map, character_information)
+    >>> game_map = {(0, 0): "", (0, 1): "", (0, 2): "", (1, 0): "", (2, 2): "endpoint"}
+    >>> character_coordinates = {'X-coordinate': 0, 'Y-coordinate': 0}
+    >>> check_if_goal_attained(game_map, character_coordinates)
     False
     """
     goal_destination = list(board.keys())[-1]
