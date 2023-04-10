@@ -6,6 +6,37 @@ import itertools
 import random
 
 
+def check_if_goal_attained(board: dict, character: dict) -> bool:
+    """
+    Check if the player has reached the bottom right corner of a board.
+
+    A function that checks if the character coordinates match the last coordinates of a board (2, 2).
+
+    :param board: a dictionary created by the "make_board" function
+    :param character: a dictionary created by the "make_character" function
+    :precondition: board must be a dict created by the make_board function
+    :precondition: character must be a dict created by the make_character function
+    :postcondition: returns True if the coordinates of the character match the last key of the dict board, else False
+    :return: True or False
+    >>> game_map = {(0, 0): "Room1", (0, 1): "Room2", (0, 2): "Room3", (1, 0): "Room4", (2, 2): "last_room"}
+    >>> character_information = {'X-coordinate': 2, 'Y-coordinate': 2, 'Current HP': 5}
+    >>> check_if_goal_attained(game_map, character_information)
+    True
+    >>> game_map = {(0, 0): "Room1", (0, 1): "Room2", (0, 2): "Room3", (1, 0): "Room4", (2, 2): "last_room"}
+    >>> character_information = {'X-coordinate': 1, 'Y-coordinate': 1, 'Current HP': 5}
+    >>> check_if_goal_attained(game_map, character_information)
+    False
+    >>> game_map = {(0, 0): "Room1", (0, 1): "Room2", (0, 2): "Room3", (1, 0): "Room4", (2, 2): "last_room"}
+    >>> character_information = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> check_if_goal_attained(game_map, character_information)
+    False
+    """
+    goal_destination = list(board.keys())[-1]
+    if (character['X-coordinate'], character['Y-coordinate']) == goal_destination:
+        return True
+    return False
+
+
 def move_character(character_coordinates: dict, direction: str) -> dict:
     """
     Move the character one unit by the specified direction.
