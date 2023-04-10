@@ -5,8 +5,34 @@ A01344049
 import random
 
 
-def check_for_enemies(character):
+def check_for_enemies(character: dict) -> tuple:
+    """
+    Check for enemy spawns in the current location.
+
+    A function to return a foe tuple containing its name, 'XP' value, and 'damage' value if the character is present at
+    a special location, or if a random number generator the int 1 at an estimated 33% chance.
+
+    :param character: a dict containing the character's attributes
+    :precondition: character must be a dict containing the keys 'X-coordinate', 'Y-coordinate' and 'level'
+    :postcondition: returns a foe tuple containing its name, 'XP' value, and 'damage' value
+    :return: a tuple
+    """
     def spawn_special_foe(location: tuple, special_foes: dict) -> tuple:
+        """
+        Generate a special foe for a given location.
+
+        The function to look up the special foe associated with the given 'location' in the 'special_foes' dictionary
+        and return a tuple containing the foe's name and attributes.
+
+        :param location: a tuple containing the coordinates of the special spawn point
+        :param special_foes: a dict containing the special spawn points and their associated foes
+        :precondition: location must be a (x, y) tuple where x and y are positive integers
+        :precondition: special_foes must be a dictionary containing (x, y) a tuple coordinate as keys, and a tuple
+                       containing the foe's information
+        :postcondition: Returns a tuple containing a special foe name and a special foe dictionary containing the foe's
+                        attributes
+        :return: a tuple
+        """
         special_foe = special_foes[location]
         return special_foe
 
