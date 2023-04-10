@@ -29,6 +29,28 @@ def update_skills(character: dict) -> dict:
 
 
 def check_if_level_up(character: dict) -> bool:
+    """
+    Check if the character's XP has reached the threshold for leveling up.
+
+    :param character: a dict containing the character's attributes
+    :precondition: character must contain 'XP' and 'level' keys with integer values
+    :postcondition: checks the character's XP and level, returning True if leveled up, else False
+    :return: True or false
+    :raises KeyError: if the keys 'XP' and 'level' are not present in character dict
+    >>> character_stats = {'level': 1, 'XP': 0, 'skills': {'strength': 1, 'agility': 1, 'luck': 1}}
+    >>> check_if_level_up(character_stats)
+    XP to next level: 100
+    <BLANKLINE>
+    False
+    >>> character_stats = {'level': 1, 'XP': 100, 'skills': {'strength': 1, 'agility': 1, 'luck': 1}}
+    >>> check_if_level_up(character_stats)
+    XP to next level: 200
+    <BLANKLINE>
+    True
+    >>> character_stats = {'level': 2, 'XP': 350, 'skills': {'strength': 1, 'agility': 1, 'luck': 1}}
+    >>> check_if_level_up(character_stats)
+    True
+    """
     if character['XP'] < 100:
         print(f"XP to next level: {100 - character['XP']}\n")
         return False
