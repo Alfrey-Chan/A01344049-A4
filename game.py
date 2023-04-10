@@ -3,7 +3,7 @@ Alfrey Chan
 A01344049
 """
 import itertools
-from board.board import make_board, set_descriptions, describe_current_location, get_user_choice, validate_move
+from board.board import set_descriptions, describe_current_location, get_user_choice, validate_move
 from board.board import move_character, check_if_goal_attained
 from board.enemy_spawn import check_for_enemies
 from combat.combat import battle
