@@ -4,7 +4,8 @@ A01344049
 """
 from board.board import make_board, describe_current_location, get_user_choice, validate_move
 from board.board import move_character, check_if_goal_attained
-from combat.combat import check_for_enemies, battle
+from board.enemy_spawn import check_for_enemies
+from combat.combat import battle
 from character.create_character import create_character, update_xp
 
 
