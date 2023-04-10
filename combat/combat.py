@@ -73,17 +73,16 @@ def battle(character, foe):
 
 
 def check_for_enemies(character):
-    def spawn_special_foe(location: tuple) -> tuple:
-        special_spawns = {
-            (4, 0): ('barely sane man', {'XP': 50, 'damage': 5}),
-            (2, 1): ('ghoul cluster', {'XP': 75, 'damage': 15}),
-            (0, 3): ('mutant behemoth', {'XP': 100, 'damage': 30}),
-            (4, 4): ('deathclaw queen', {'XP': 0, 'damage': 35})
-        }
-        special_foe = special_spawns[location]
-        del special_spawns[location]
+    def spawn_special_foe(location: tuple, special_foes: dict) -> tuple:
+        special_foe = special_foes[location]
         return special_foe
 
+    special_spawns = {
+        (4, 0): ('barely sane man', {'XP': 50, 'damage': 5}),
+        (2, 1): ('ghoul cluster', {'XP': 75, 'damage': 15}),
+        (0, 3): ('mutant behemoth', {'XP': 100, 'damage': 30}),
+        (4, 4): ('deathclaw queen', {'XP': 0, 'damage': 35})
+    }
     normal_spawns = {
         1: [
             ('mole rat', {'XP': 7, 'damage': 2}),
@@ -112,7 +111,7 @@ def check_for_enemies(character):
     current_level = character['level']
 
     if current_location in special_spawn_locations:
-        return spawn_special_foe(current_location)
+        return spawn_special_foe(current_location, special_spawns)
     else:
         if random.choice([1, 2, 3]) == 1:
             return random.choice(normal_spawns[current_level])
