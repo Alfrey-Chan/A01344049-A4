@@ -30,11 +30,13 @@ def is_jesus(character):
     if character['skills']['luck'] == 3:
         win_game = chance_game([1, 1, 1, 1, 0])
         if win_game:
-            print("""You feel the lucky charms soaring through your veins!\nYour HP has been restored and your 
-            radiation levels have been reduced to zero!""")
+            print("You feel the lucky charms soaring through your veins!\nYour HP has been restored and your radiation "
+                  "levels have been reduced to zero!\n")
             character['HP'] = 100
             character['radiation'] = 0
-            print(character)
+            coordinates = ['X-coordinate', 'Y-coordinate']
+            character_without_coordinates = {key: value for key, value in character.items() if key not in coordinates}
+            print(character_without_coordinates)
 
 
 def attack(character_stats, foe_damage):
@@ -44,7 +46,7 @@ def attack(character_stats, foe_damage):
         2: 3,
         3: 2
     }
-    print("You've defeated the opponent! But you've taken some damage in return.")
+    print("You've defeated the opponent! But you've taken some damage in return.\n")
     character_stats['HP'] = character_stats['HP'] - round(foe_damage/damage_reduction[strength_level])
 
 
@@ -78,7 +80,9 @@ def check_for_enemies(character):
             (0, 3): ('mutant behemoth', {'XP': 100, 'damage': 30}),
             (4, 4): ('deathclaw queen', {'XP': 0, 'damage': 35})
         }
-        return special_spawns[location]
+        special_foe = special_spawns[location]
+        del special_spawns[location]
+        return special_foe
 
     normal_spawns = {
         1: [
@@ -103,7 +107,7 @@ def check_for_enemies(character):
             ('mutant hound', {'XP': 0, 'damage': 17})
         ]
     }
-    special_spawn_locations = {(4, 0), (2, 1), (0, 3), (4,4)}
+    special_spawn_locations = {(4, 0), (2, 1), (0, 3), (4, 4)}
     current_location = (character['X-coordinate'], character['Y-coordinate'])
     current_level = character['level']
 
