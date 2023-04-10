@@ -54,6 +54,7 @@ def move_character(character: dict, direction: str) -> dict:
     :postcondition: decreases or increases the value belonging to the key 'X-coordinate' or 'Y-coordinate' in the
                     dictionary character depending on the value of direction
     :return: the character dict
+    :raises KeyError: if character dict does not contain the keys 'X-coordinate' and 'Y-coordinate'
     >>> character_information = {'X-coordinate': 0, 'Y-coordinate': 0}
     >>> chosen_direction = 'S'
     >>> updated_character = move_character(character_information, chosen_direction)
