@@ -65,8 +65,9 @@ def update_xp(character: dict, xp_gained: int) -> dict:
 
 def create_character() -> dict:
     """
+    Create a new character dictionary with default values.
 
-    :return:
+    :return: a dict containing character attributes
     """
     character = {
         'X-coordinate': 0,
