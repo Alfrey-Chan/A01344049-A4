@@ -7,7 +7,7 @@ from board.board import set_descriptions, describe_current_location, get_user_ch
 from board.board import move_character, check_if_goal_attained
 from board.enemy_spawn import check_for_enemies
 from combat.combat import battle
-from character.create_character import create_character, update_xp, check_if_level_up, update_skills
+from character.character import create_character, update_xp, check_if_level_up, update_skills
 
 
 def game():
