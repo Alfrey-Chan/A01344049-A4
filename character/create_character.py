@@ -35,13 +35,12 @@ def update_xp(character, xp_gained: int) -> dict:
             print(f"XP to next level: {300 - character['XP']}\n")
             return False
         else:
-            character['level'] = 3
+            character['level'] = 'max'
             return False
 
-    if character['XP'] != 3:
-        character['XP'] += xp_gained
-        if check_if_level_up() is True:
-            update_skills(character)
+    character['XP'] += xp_gained
+    if check_if_level_up() is True:
+        update_skills(character)
 
     coordinates = ['X-coordinate', 'Y-coordinate']
     character_without_coordinates = {key: value for key, value in character.items() if key not in coordinates}
