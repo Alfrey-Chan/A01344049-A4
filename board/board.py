@@ -40,45 +40,45 @@ def check_if_goal_attained(board: dict, character: dict) -> bool:
     return False
 
 
-def move_character(character_coordinates: dict, direction: str) -> dict:
+def move_character(character: dict, direction: str) -> dict:
     """
     Move the character one unit by the specified direction.
 
     A function to update the value of the key 'X-coordinate' or 'Y-coordinate' in character_coordinates depending on
-    the selected choice.
+    the selected choice of direction.
 
-    :param character_coordinates: a dictionary representing the character
+    :param character: a dict with character attributes and coordinates of the current location
     :param direction: a string representing the player's choice of direction
-    :precondition: character_coordinates must be a dict created by the make_character function
-    :precondition: direction must be one of the following strings: 'W', 'A', 'S' or 'D'
+    :precondition: character must contain the keys 'X-coordinate' and 'Y-coordinate' each with single int value
+    :precondition: direction must be one of the following single character strings: 'W', 'A', 'S' or 'D'
     :postcondition: decreases or increases the value belonging to the key 'X-coordinate' or 'Y-coordinate' in the
-                    dictionary character_coordinates depending on the value of direction
-    :return: the dictionary character_coordinates with one of the values updated
-    >>> character_information = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+                    dictionary character depending on the value of direction
+    :return: the character dict
+    >>> character_information = {'X-coordinate': 0, 'Y-coordinate': 0}
     >>> chosen_direction = 'S'
-    >>> updated_character_details = move_character(character_information, chosen_direction)
-    >>> updated_character_details
-    {'X-coordinate': 0, 'Y-coordinate': 1, 'Current HP': 5}
-    >>> character_information = {'X-coordinate': 1, 'Y-coordinate': 1, 'Current HP': 5}
+    >>> updated_character = move_character(character_information, chosen_direction)
+    >>> updated_character
+    {'X-coordinate': 0, 'Y-coordinate': -1}
+    >>> character_information = {'X-coordinate': 1, 'Y-coordinate': 1}
     >>> chosen_direction = 'W'
-    >>> updated_character_details = move_character(character_information, chosen_direction)
-    >>> updated_character_details
-    {'X-coordinate': 1, 'Y-coordinate': 0, 'Current HP': 5}
-    >>> character_information = {'X-coordinate': 2, 'Y-coordinate': 2, 'Current HP': 5}
+    >>> updated_character = move_character(character_information, chosen_direction)
+    >>> updated_character
+    {'X-coordinate': 1, 'Y-coordinate': 2}
+    >>> character_information = {'X-coordinate': 2, 'Y-coordinate': 2}
     >>> chosen_direction = 'A'
-    >>> updated_character_details = move_character(character_information, chosen_direction)
-    >>> updated_character_details
-    {'X-coordinate': 1, 'Y-coordinate': 2, 'Current HP': 5}
+    >>> updated_character = move_character(character_information, chosen_direction)
+    >>> updated_character
+    {'X-coordinate': 1, 'Y-coordinate': 2}
     """
     if direction == 'W':
-        character_coordinates["Y-coordinate"] += 1
+        character["Y-coordinate"] += 1
     elif direction == 'A':
-        character_coordinates["X-coordinate"] -= 1
+        character["X-coordinate"] -= 1
     elif direction == 'S':
-        character_coordinates["Y-coordinate"] -= 1
+        character["Y-coordinate"] -= 1
     else:
-        character_coordinates["X-coordinate"] += 1
-    return character_coordinates
+        character["X-coordinate"] += 1
+    return character
 
 
 def validate_move(character: dict, direction: str) -> bool:
