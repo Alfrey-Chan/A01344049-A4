@@ -84,32 +84,28 @@ def move_character(character: dict, direction: str) -> dict:
 
 def validate_move(character: dict, direction: str) -> bool:
     """
-    Verify if the chosen direction leads to a coordinate that is out of bounds.
+    Determine if the provided direction for the character is a valid move.
 
-    A function that checks if a move in a specified direction results in a coordinate outside the valid range, defined
-    by (x, y), where x and y are integers from 0 to 2.
-
-    :param character: a dictionary representing the character
+    :param character: a dict with character attributes and coordinates of the current location
     :param direction: a string representing the player's choice of direction
-    :precondition: character must be a dictionary created by the make_character function
-    :precondition: direction must be one of the following strings: 'W', 'A', 'S' or 'D'
-    :postcondition: returns False if the 'X-coordinate' is 0 and the chosen direction is 'A', or if the 'X-coordinate'
-                    is 2 and the chosen direction is 'D', else True for other cases involving 'X-coordinate'
-    :postcondition: returns False if the 'Y-coordinate' is 0 and the chosen direction is 'W', or if the 'Y-coordinate'
-                    is 2 and the chosen direction is 'S', else True for other cases involving 'Y-coordinate'
+    :precondition: character must contain the keys 'X-coordinate' and 'Y-coordinate' each with single int value
+    :precondition: direction must be one of the following single character strings: 'W', 'A', 'S' or 'D'
+    :postcondition: returns True if the given direction is a valid move for their current position, as defined by the
+                    'possible_moves' dict, else False
     :return: True or False
-    >>> character_details = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
-    >>> chosen_direction = 'W'
-    >>> validate_move(character_details, chosen_direction)
-    False
-    >>> character_details = {'X-coordinate': 2, 'Y-coordinate': 2, 'Current HP': 5}
-    >>> chosen_direction = 'D'
-    >>> validate_move(character_details, chosen_direction)
-    False
-    >>> character_details = {'X-coordinate': 1, 'Y-coordinate': 1, 'Current HP': 5}
+    :raises KeyError: if character dict does not contain the keys 'X-coordinate' and 'Y-coordinate'
+    >>> character_details = {'X-coordinate': 0, 'Y-coordinate': 4}
     >>> chosen_direction = 'S'
     >>> validate_move(character_details, chosen_direction)
     True
+    >>> character_details = {'X-coordinate': 2, 'Y-coordinate': 2}
+    >>> chosen_direction = 'D'
+    >>> validate_move(character_details, chosen_direction)
+    True
+    >>> character_details = {'X-coordinate': 1, 'Y-coordinate': 0}
+    >>> chosen_direction = 'S'
+    >>> validate_move(character_details, chosen_direction)
+    False
     """
     possible_moves = {
         (0, 0): ['D'],
