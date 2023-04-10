@@ -4,6 +4,51 @@ A01340049
 """
 
 
+def update_skills(character: dict) -> dict:
+    print(f"{character['skills']}\nYou've earned a skill point! Which skill would you like to add a point to?")
+    choices = f"\t'1' for strength\n\t'2' for agility\n\t'3' for luck"
+    skill_map = {1: 'strength', 2: 'agility', 3: 'luck'}
+    while True:
+        try:
+            choice = int(input(f"Pick one of the following:\n{choices}"))
+            character['skills'][skill_map[choice]] += 1
+            break
+        except (ValueError, KeyError):
+            print("Invalid input! Please try again.")
+
+    return character
+
+
+def update_xp(character, xp_gained: int) -> dict:
+    def check_if_level_up() -> bool:
+        if character['XP'] < 100:
+            print(f"XP to next level: {100 - character['XP']}\n")
+            return False
+        elif character['XP'] >= 100 and character['level'] == 1:
+            character['level'] += 1
+            print(f"XP to next level: {300 - character['XP']}\n")
+            return True
+        elif character['XP'] >= 300 and character['level'] == 2:
+            character['level'] += 1
+            return True
+        elif character['XP'] >= 100 and character['level'] == 2:
+            print(f"XP to next level: {300 - character['XP']}\n")
+            return False
+        else:
+            character['level'] = 3
+            return False
+
+    if character['XP'] != 3:
+        character['XP'] += xp_gained
+        if check_if_level_up() is True:
+            update_skills(character)
+
+    coordinates = ['X-coordinate', 'Y-coordinate']
+    character_without_coordinates = {key: value for key, value in character.items() if key not in coordinates}
+    print(character_without_coordinates)
+    return character
+
+
 def create_character():
     character = {
         'X-coordinate': 0,
