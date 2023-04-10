@@ -5,7 +5,16 @@ A01344049
 import random
 
 
-def chance_game(numbers: list):
+def chance_game(numbers: list) -> bool:
+    """
+    Return True if the number 1 is randomly selected from the given list.
+
+    :param numbers: a list
+    :precondition: numbers must be a non-empty list
+    :precondition: numbers must contain more than one element, with one being at least the integer 1
+    :postcondition: returns True if the number 1 is randomly selected from the list, else False
+    :return: True or False
+    """
     if random.choice(numbers) == 1:
         return True
     return False
