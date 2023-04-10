@@ -178,7 +178,26 @@ def describe_current_location(board: dict, character: dict) -> dict:
 
 
 def set_descriptions(board: dict) -> dict:
+    """
+    Assign randomized descriptions to each coordinate in board.
+
+    A function that takes a dict representing the game board and assigns a random description from a predefined list
+    to each coordinate in the board.
+
+    :param board: a dict with (x, y) tuple keys representing coordinates of a map
+    :precondition: board must be a non-empty dict with (x, y) tuple keys representing x and y coordinates
+    :postcondition: returns board dict with the same keys, but the values replaced with randomized descriptions
+    :return: the board dict with randomized descriptions assigned to each coordinate
+    """
     def randomized_descriptions(game_map: dict) -> dict:
+        """
+        Assign random descriptions to each coordinate in the given game map.
+
+        :param game_map: a dictionary with tuple keys representing coordinates of a map
+        :precondition: game_map must be a non-empty  dict with (x, y) tuple keys representing x and y coordinates
+        :postcondition: returns game_map dict with the same keys, but the values replaced with randomized descriptions
+        :return: a dict with the same keys as before, but with random descriptions as values
+        """
         coordinate_descriptions = [
             "Ugh, I don't feel so good...",
             "There's some odd growling noises in the distance. Doesn't sound too inviting...",
