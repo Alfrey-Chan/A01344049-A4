@@ -5,6 +5,15 @@ A01340049
 
 
 def update_skills(character: dict) -> dict:
+    """
+    Update values in the character's 'skills' sub-dictionary upon leveling up.
+
+    :param character: a dict containing the character's attributes
+    :precondition: character must contain the 'skills' sub-dictionary with the keys 'strength', 'agility', 'luck' and
+                   each of these keys have integer values
+    :postcondition: updates character's value stored in the chosen key within the 'skills' sub-dictionary by one
+    :return: the updated character dict
+    """
     print(f"{character['skills']}\nYou've earned a skill point! Which skill would you like to add a point to?")
     choices = f"\t'1' for strength\n\t'2' for agility\n\t'3' for luck"
     skill_map = {1: 'strength', 2: 'agility', 3: 'luck'}
