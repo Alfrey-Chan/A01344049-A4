@@ -162,6 +162,17 @@ def get_user_choice() -> str:
 
 
 def describe_current_location(board: dict, character: dict) -> dict:
+    """
+    Return the description of the character's current location on the board.
+
+    :param board: a dict with tuples as keys representing coordinates of a map and values as descriptions
+    :param character: a dict with character attributes and coordinates of the current location
+    :precondition: board must be a non-empty dict with (x, y) tuple keys representing x and y coordinates
+    :precondition: character must contain the keys 'X-coordinate' and 'Y-coordinate' each with single int value
+    :postcondition: returns the description of the character's current location on the board
+    :return: a dict value corresponding to the character's current location
+    :raises KeyError: if board does not contain the coordinates of the current location
+    """
     current_location = (character['X-coordinate'], character['Y-coordinate'])
     return board[current_location]
 
