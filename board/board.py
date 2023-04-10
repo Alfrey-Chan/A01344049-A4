@@ -37,11 +37,11 @@ def move_character(character_coordinates: dict, direction: str) -> dict:
     {'X-coordinate': 1, 'Y-coordinate': 2, 'Current HP': 5}
     """
     if direction == 'W':
-        character_coordinates["Y-coordinate"] -= 1
+        character_coordinates["Y-coordinate"] += 1
     elif direction == 'A':
         character_coordinates["X-coordinate"] -= 1
     elif direction == 'S':
-        character_coordinates["Y-coordinate"] += 1
+        character_coordinates["Y-coordinate"] -= 1
     else:
         character_coordinates["X-coordinate"] += 1
     return character_coordinates
@@ -76,16 +76,37 @@ def validate_move(character: dict, direction: str) -> bool:
     >>> validate_move(character_details, chosen_direction)
     True
     """
-    if direction == 'W' and character["Y-coordinate"] != 0:
+    possible_moves = {
+        (0, 0): ['D'],
+        (1, 0): ['D'],
+        (2, 0): ['W', 'D'],
+        (3, 0): ['D', 'A'],
+        (4, 0): ['A'],
+        (0, 1): ['W', 'D'],
+        (1, 1): ['W', 'D', 'A'],
+        (2, 1): ['A', 'S', 'D'],
+        (3, 1): ['A', 'D'],
+        (4, 1): ['A', 'W'],
+        (0, 2): ['S', 'D'],
+        (1, 2): ['A', 'S'],
+        (2, 2): ['W', 'D'],
+        (3, 2): ['A', 'W'],
+        (4, 2): ['W', 'S'],
+        (0, 3): ['W'],
+        (1, 3): ['W', 'D'],
+        (2, 3): ['A', 'S'],
+        (3, 3): ['S', 'D'],
+        (4, 3): ['S', 'A'],
+        (0, 4): ['S', 'D'],
+        (1, 4): ['S', 'A', 'D'],
+        (2, 4): ['A', 'D'],
+        (3, 4): ['A', 'D'],
+        (4, 4): ['A']
+    }
+    player_position = (character['X-coordinate'], character['Y-coordinate'])
+    if direction in possible_moves[player_position]:
         return True
-    elif direction == 'A' and character["X-coordinate"] != 0:
-        return True
-    elif direction == 'S' and character["Y-coordinate"] != 2:
-        return True
-    elif direction == 'D' and character["X-coordinate"] != 2:
-        return True
-    else:
-        return False
+    return False
 
 
 def get_user_choice() -> str:
@@ -100,7 +121,7 @@ def get_user_choice() -> str:
     'S' for South
     'D' for East   
     """
-    direction = input(f"Choose the direction you'd like to move:\n{choices}").strip().upper()
+    direction = input(f"Which direction?:\n{choices}").strip().upper()
     print()
 
     while direction not in ['W', 'A', 'S', 'D']:

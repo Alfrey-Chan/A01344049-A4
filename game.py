@@ -15,15 +15,16 @@ def game():
     # print(location_descriptions)
     # character = make_character("Player name")
 
-    # achieved_goal = False
-    # while not achieved_goal:
-    #
+    achieved_goal = False
     print(describe_current_location(board, character))
-    direction = get_user_choice()
-    valid_move = validate_move(board, character, direction)
-    if valid_move:
-        move_character(character)
-    print(describe_current_location(board, character))
+    while not achieved_goal:
+        direction = get_user_choice()
+        valid_move = validate_move(character, direction)
+        if valid_move:
+            move_character(character, direction)
+            print(describe_current_location(board, character))
+        else:
+            print("This direction is blocked by rubble and debris, you'll need to find another way around.")
     # there_is_a_challenge = check_for_challenges()
     # if there_is_a_challenge:
     #     execute_challenge_protocol(character)
