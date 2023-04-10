@@ -12,8 +12,7 @@ def create_character():
         'radiation': 0,
         'level': 1,
         'XP': 0,
-        'skills': {'strength': 1, 'agility': 1, 'luck': 1},
-        'inventory': []
+        'skills': {'strength': 1, 'agility': 1, 'luck': 1}
     }
     return character
 
