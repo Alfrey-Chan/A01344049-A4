@@ -2,7 +2,8 @@
 Alfrey Chan
 A01344049
 """
-from board.board import make_board, describe_current_location, get_user_choice, validate_move
+import itertools
+from board.board import make_board, set_descriptions, describe_current_location, get_user_choice, validate_move
 from board.board import move_character, check_if_goal_attained
 from board.enemy_spawn import check_for_enemies
 from combat.combat import battle
@@ -10,7 +11,8 @@ from character.create_character import create_character, update_xp
 
 
 def game():
-    board = make_board()
+    board = {(x_coordinate, y_coordinate): None for x_coordinate, y_coordinate in itertools.product(range(5), repeat=2)}
+    board = set_descriptions(board)
     character = create_character()
     achieved_goal = False
     print(describe_current_location(board, character))
@@ -37,6 +39,7 @@ def game():
         if character['radiation'] >= 100:
             return print("You've died from radiation poisoning...\nGAME OVER")
         achieved_goal = check_if_goal_attained(board, character)
+    print("You've escaped the wretched wasteland!.... for now.")
 
 
 def main():

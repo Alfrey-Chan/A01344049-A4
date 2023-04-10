@@ -232,8 +232,3 @@ def set_descriptions(board: dict) -> dict:
 
     board = randomized_descriptions(board)
     return board
-
-
-def make_board():
-    board = {(x_coordinate, y_coordinate): None for x_coordinate, y_coordinate in itertools.product(range(5), repeat=2)}
-    return set_descriptions(board)
