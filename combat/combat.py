@@ -46,7 +46,7 @@ def attack(character_stats, foe_damage):
         2: 3,
         3: 2
     }
-    print("You've defeated the opponent! But you've taken some damage in return.\n")
+    print("You've defeated the opponent! But you've taken some damage in return.")
     character_stats['HP'] = character_stats['HP'] - round(foe_damage/damage_reduction[strength_level])
 
 
@@ -99,11 +99,11 @@ def check_for_enemies(character):
             ('psycho scavenger', {'XP': 30, 'damage': 13})
         ],
         3: [
-            ('super mutant', {'XP': 0, 'damage': 15}),
-            ('deathclaw', {'XP': 0, 'damage': 20}),
-            ('fire ant warrior', {'XP': 0, 'damage': 18}),
-            ('berserk raider', {'XP': 0, 'damage': 15}),
-            ('mutant hound', {'XP': 0, 'damage': 17})
+            ('super mutant', {'XP': 150, 'damage': 15}),
+            ('deathclaw', {'XP': 200, 'damage': 20}),
+            ('fire ant warrior', {'XP': 150, 'damage': 18}),
+            ('berserk raider', {'XP': 150, 'damage': 15}),
+            ('mutant hound', {'XP': 150, 'damage': 17})
         ]
     }
     special_spawn_locations = {(4, 0), (2, 1), (0, 3), (4, 4)}
