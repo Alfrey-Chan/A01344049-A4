@@ -9,13 +9,23 @@ def check_for_enemies(character: dict) -> tuple:
     """
     Check for enemy spawns in the current location.
 
-    A function to return a foe tuple containing its name, 'XP' value, and 'damage' value if the character is present at
-    a special location, or if a random number generator the int 1 at an estimated 33% chance.
+    A function to return a foe tuple containing its name, 'XP' value, and 'damage' value based on the character's level
+    if a random number generator generates the int 1, or spawn a special foe if the character is present at a special
+    location.
 
     :param character: a dict containing the character's attributes
     :precondition: character must be a dict containing the keys 'X-coordinate', 'Y-coordinate' and 'level'
     :postcondition: returns a foe tuple containing its name, 'XP' value, and 'damage' value
     :return: a tuple
+    >>> character_location = {'X-coordinate': 4, 'Y-coordinate': 0, 'level': 1}
+    >>> check_for_enemies(character_location)
+    ('barely sane man', {'XP': 50, 'damage': 5})
+    >>> character_location = {'X-coordinate': 2, 'Y-coordinate': 1, 'level': 1}
+    >>> check_for_enemies(character_location)
+    ('ghoul cluster', {'XP': 75, 'damage': 15})
+    >>> character_location = {'X-coordinate': 0, 'Y-coordinate': 3, 'level': 3}
+    >>> check_for_enemies(character_location)
+    ('mutant behemoth', {'XP': 100, 'damage': 30})
     """
     def spawn_special_foe(location: tuple, special_foes: dict) -> tuple:
         """
