@@ -2,20 +2,15 @@
 Alfrey Chan
 A01344049
 """
-from board.board import make_board, set_descriptions, describe_current_location, get_user_choice, validate_move
-from board.board import move_character
-from combat.combat import check_for_enemies
-from character.create_character import create_character
+from board.board import make_board, describe_current_location, get_user_choice, validate_move
+from board.board import move_character, check_if_goal_attained
+from combat.combat import check_for_enemies, battle
+from character.create_character import create_character, update_xp
 
 
 def game():
     board = make_board()
-    # board = set_descriptions(board)
     character = create_character()
-    # print(character)
-    # print(location_descriptions)
-    # character = make_character("Player name")
-
     achieved_goal = False
     print(describe_current_location(board, character))
     while not achieved_goal:
@@ -23,19 +18,24 @@ def game():
         valid_move = validate_move(character, direction)
         if valid_move:
             move_character(character, direction)
+            character['radiation'] += 2
             print(describe_current_location(board, character))
-            enemy_spawn = check_for_enemies(character)
-            if enemy_spawn:
-                print(f"A wild {enemy_spawn[0]} appeared!")
+            enemy_spawned = check_for_enemies(character)
 
+            if enemy_spawned:
+                print(f"A wild {enemy_spawned[0]} appeared!\n")
+                battle(character, enemy_spawned)
+                if character['HP'] == 0:
+                    return print(f"You've been slayed by the mighty {enemy_spawned[0]}")
+                update_xp(character, enemy_spawned[1]['XP'])
         else:
             print("This direction is blocked by rubble and debris, you'll need to find another way around.")
-    # there_is_a_challenge = check_for_challenges()
-    # if there_is_a_challenge:
-    #     execute_challenge_protocol(character)
-    # if character_has_leveled():
-    #     execute_glow_up_protocol()
-    # achieved_goal = check_if_goal_attained(board, character)
+
+        if character['HP'] == 0:
+            return print("You've fallen victim to the wasteland...\nGAME OVER")
+        if character['radiation'] >= 100:
+            return print("You've died from radiation poisoning...\nGAME OVER")
+        achieved_goal = check_if_goal_attained(board, character)
 
 
 def main():
