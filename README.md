@@ -14,7 +14,8 @@ A01344049
 Alfrey-Chan
 
 ## Any important comments you'd like to make about your work:
-Replace this line with any comments you want to share
+If you need a cheatsheet to beat the game, look at the map.pdf! You start at the bottom left, and the endpoint is the 
+top right corner! The X marks a special spawn!
 
 ## Rubric requirements
 |      Elements       |   Module Name    |    Line Number    |                     Function Name                     |
