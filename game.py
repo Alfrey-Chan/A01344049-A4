@@ -48,7 +48,7 @@ def game():
         if character['radiation'] >= 100:
             return print("You've died from radiation poisoning...\nGAME OVER")
         achieved_goal = check_if_goal_attained(board, character)
-    print("You've escaped the wretched wasteland!.... for now.")
+    print("\nCONGRATULATIONS! You've escaped the wretched wasteland!.... for now.")
 
 
 def main():
