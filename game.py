@@ -11,6 +11,7 @@ from character.character import create_character, update_xp, check_if_level_up, 
 
 
 def game():
+    print("You're in a radiated wasteland! Escape the maze to survive!\nBeware of the dangers to come...")
     board = {(x_coordinate, y_coordinate): None for x_coordinate, y_coordinate in itertools.product(range(5), repeat=2)}
     board = set_descriptions(board)
     character = create_character()
