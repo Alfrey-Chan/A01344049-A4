@@ -30,3 +30,9 @@ class TestMoveCharacter(TestCase):
         actual = move_character(character_information, chosen_direction)
         expected = {'X-coordinate': 1, 'Y-coordinate': 4}
         self.assertEqual(expected, actual)
+
+    def test_move_character_key_error(self):
+        with self.assertRaises(KeyError):
+            character_information = {'X-coordinate': 4}
+            chosen_direction = 'W'
+            move_character(character_information, chosen_direction)
